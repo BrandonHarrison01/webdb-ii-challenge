@@ -8,7 +8,9 @@ const db = knex(knexConfig.development)
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.status(200).json(db)
+    db('cars')
+        .then(result => res.status(200).json(result))
+        .catch(error => res.status(500).json({ error: 'there was an error' }))
 })
 
 module.exports = router;
